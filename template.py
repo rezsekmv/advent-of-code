@@ -7,3 +7,5 @@ with open(FILENAME) as f:
 
 for line in lines:
     pass
+
+print(lines)
