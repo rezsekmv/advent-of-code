@@ -1,4 +1,4 @@
-FILENAME = '2.txt'
+FILENAME = '0.txt'
 lines = []
 
 with open(FILENAME) as f:
