@@ -1,11 +1,5 @@
-FILENAME = '0.txt'
-lines = []
-
-with open(FILENAME) as f:
-    lines = [l.rstrip() for l in f.readlines()]
-    f.close()
-
-#====================================================
+from my_input import lines
+import util
 
 for line in lines:
     pass
