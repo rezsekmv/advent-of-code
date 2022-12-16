@@ -1,6 +1,6 @@
 import sys
 
-FILENAME = sys.argv[0].split('/')[-1].replace('.py', '') + '.txt'
+FILENAME = sys.argv[0].split('/')[-1].replace('.py', '') + '.in'
 lines = []
 
 with open(FILENAME) as f:
