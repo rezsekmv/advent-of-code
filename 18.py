@@ -44,7 +44,7 @@ def isGhostCube(cube, tmp, limit=0):
 
 
 
-def getSpareSides(cube):
+def getSpareSides(cube,i,res):
     N = [
         [cube[0]-1, cube[1], cube[2]],
         [cube[0]+1, cube[1], cube[2]],
@@ -57,12 +57,24 @@ def getSpareSides(cube):
     for n in N:
         if n in cubes:
             notSpare += 1
+        elif isGhostCube(n, cubes):
+            notSpare += 1
+
+    res[i] = 6-notSpare
     return 6 - notSpare
 
+import threading
 
+threads = []
 ans = 0
-for p, cube in enumerate(cubes):
-    ans += getSpareSides(cube)
-    print(str(p / len(lines)*100) + '%')
+res = [0] * len(cubes)
+for i, cube in enumerate(cubes):
+    print(i)
+    thread = threading.Thread( target=getSpareSides, args=(cube,i,res) )
+    thread.start()
+
+for i,t in enumerate(threads):
+    t.join()
+    ans += res[i]
 
 print(ans)
