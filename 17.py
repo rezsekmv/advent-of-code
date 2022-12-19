@@ -39,14 +39,13 @@ sortedCoords = []
 
 cache = []
 cc = 0
-ci = -1
+before = 0
 # main loop
-while rocksPlaced < 5022:
+while rocksPlaced < 1000000000000%3878:
 
     currentRock = deepcopy(rocks[rockIndex % len(rocks)])
     for i in range(len(currentRock)):
-        currentRock[i] = (currentRock[i][0] + highestRock +
-                          4, currentRock[i][1] + 3)
+        currentRock[i] = (currentRock[i][0] + highestRock + 4, currentRock[i][1] + 3)
 
     stopped = False
     while not stopped:
@@ -84,23 +83,18 @@ while rocksPlaced < 5022:
     for i in range(len(tmp)):
         tmp[i] = (tmp[i][0]-highestRock, tmp[i][1])
 
-    if cc == 0:
-        try:
-            ci = cache.index(tmp)
-        except:
-            pass
-    elif cc > 0 and ci > 0:
-        ci += 1
-        if cache[ci] == tmp:
-            print('found', cc)
-            cc += 1
-        else:
-            cc = 0
-            ci = -1
-
-    if cc > 10:
-        print(cc)
-    cache.append(tmp)    
+    signature = (rockIndex%len(rocks), lineIndex%len(line) )
+    if (signature in cache):
+        cc += 1
+        before = highestRock
+    else:
+        cc = 0
+        before = 0
+        cache.append( signature )
+    
+    if rocksPlaced//2 == cc and rocksPlaced > 10:
+        ans = highestRock
+        break
     
     # next
     rockIndex += 1
@@ -109,6 +103,9 @@ while rocksPlaced < 5022:
     highestRock = getHighest(coordsPlaced)
 
 sortedCoords = sorted(list(coordsPlaced), key=lambda a: (a[0], a[1]))
-
+ans = 0
+a = 1000000000000 // 96
+ans += highestRock*a
 print('sym finished')
+print(ans)
 
