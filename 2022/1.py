@@ -1,9 +1,9 @@
-FILENAME = '1.txt'
+FILENAME = 'input/1.txt'
 result = [0, 0, 0]
 line = 0
 summary = 0
 
-with open(FILENAME) as f:
+with open(FILENAME, 'rt') as f:
     lines = [l.rstrip() for l in f.readlines()]
     
     for line in lines: 

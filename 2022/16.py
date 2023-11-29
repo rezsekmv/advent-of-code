@@ -48,7 +48,6 @@ for i, line in enumerate(lines):
     for neigh in neighbours:
         allNode[i].neighbours.append(getNodeByName(neigh))
 
-
 # create steps graph init
 for node in allNode:
     for neigh in node.neighbours:
@@ -64,17 +63,16 @@ def floydWarshall(graph):
                 dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
     return dist
 
+
 # DFS
-def DFS(start, visited, maxx = 30):
-    if maxx < 1:
-        return 
-
-    visited.append(start)
-
-    for neighbour in start.neighbours:
-        if neighbour not in visited:
-            DFS(neighbour, visited, maxx-1)
-
+def DFS(start, time, state, opened , result):
+    result[state] = max(result.get(state, 0), opened)
+    for node in allNode:
+        newbudget = time - start.shortestPath[node.idx] - 1
+        if newbudget <= 0:
+            continue
+        DFS(node, newbudget, state, opened + newbudget * node.rate, result)
+    return result   
 
 # add shortest path info to node objects
 shortestPathMx = floydWarshall(graph)
@@ -84,24 +82,5 @@ for i, node in enumerate(allNode):
 
 
 # brute force
-limit = 30
-opened = []
-
-# sort the nodes
-# go trought sort order
-# node value = limit-steps-1
-
-while True:
-    for time in range(limit+1):
-
-
-
-
-
-
-
-
-# imitate time
-ans = 0
-
-print(ans)
+bests = DFS(getNodeByName('AA'), 30, 0, 0, {}).values()
+print(max(bests))

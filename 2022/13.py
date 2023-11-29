@@ -58,7 +58,8 @@ for i in range(len(data)-1):
             data[j] = data[j+1]
             data[j+1] = tmp
 
-data.sort(key=rightOrder)
+# import functools
+# sorted(data, key=functools.cmp_to_key(rightOrder))
 
 ans = (data.index([[2]])+1) * (data.index([[6]])+1)
 
