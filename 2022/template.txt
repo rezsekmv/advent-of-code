@@ -1,0 +1,2 @@
+id: 1 robots: {'ore': 1, 'clay': 4, 'obsidian': 2, 'geode': 0} pack: {'ore': 3, 'clay': 13, 'obsidian': 8, 'geode': 0} time: 17
+id: 1 robots: {'ore': 1, 'clay': 4, 'obsidian': 2, 'geode': 1} pack: {'ore': 2, 'clay': 17, 'obsidian': 3, 'geode': 1} time: 18

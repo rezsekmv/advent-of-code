@@ -1,3 +1,4 @@
+
 import re
 
 def getCommon(list1, list2):
