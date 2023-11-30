@@ -1,10 +1,10 @@
 import sys
 sys.path.append('../advent_of_code')
-from fetch_data import fetch_data
+from input_data import get_data
 import math
 from collections import deque
 
-data = fetch_data(1)
+data = get_data(1, 2021).split('\n')
 
 inc = 0
 prev = deque([math.inf, math.inf, math.inf])
