@@ -5,3 +5,4 @@ leaderboard
 .idea
 
 *.in
+secret.py

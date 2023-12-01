@@ -1,7 +1,6 @@
 import requests
 import os.path
-
-SESSION_ID = '<<FILL IN YOUR SESSION_ID>>'
+from secret import SESSION_ID
 
 def fetch_data(day, year):
     headers = {
