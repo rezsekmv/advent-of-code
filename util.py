@@ -9,3 +9,10 @@ def getNumbers(str, sep=r'\b'):
 
 def getRegexp(str, regexp='^[a-zA-Z]+$'):
     return re.findall(regexp, str)
+
+def getFirstRegexp(str, regexp='^[a-zA-Z]+$'):
+    res = re.findall(regexp, str)
+    if len(res) > 0:
+        return res[0]
+    else:
+        return ''
