@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Main {
+class Main {
     public static void main(String[] args) throws IOException {
         File file = new File("input_5.in");
 
@@ -15,9 +15,8 @@ public class Main {
 
         String text = new String(data, StandardCharsets.UTF_8);
 
-        var startt = new Date();
-        String[] lines = text.split("\n\n");
-        List<List<List<Long>>> li = new ArrayList<>();
+        String[] lines = text.split("\\r?\\n\\r?\\n");
+        List<List<List<Long>>> list = new ArrayList<>();
         List<Long> seeds = getNumbers(lines[0].split(":")[1]);
         for (int i = 1; i < lines.length; i++) {
             String[] parts = lines[i].split(":");
@@ -27,32 +26,29 @@ public class Main {
             for (String v : vtextLines) {
                 values.add(getNumbers(v));
             }
-            li.add(new ArrayList<>(values));
+            list.add(new ArrayList<>(values));
         }
+
+        System.out.println("Calculating...");
 
         long min = Long.MAX_VALUE;
         for (int z = 0; z < seeds.size(); z += 2) {
-            System.out.println(z);
             for (long s = seeds.get(z); s < seeds.get(z) + seeds.get(z + 1); s++) {
-                var ne = s;
-                for (var v : li) {
-                    for (List<Long> a : v) {
-                        if (a.get(1) <= ne && ne < a.get(1) + a.get(2)) {
-                            ne += (a.get(0) - a.get(1));
+                var newS = s;
+                for (var mappers : list) {
+                    for (List<Long> map : mappers) {
+                        if (map.get(1) <= newS && newS < map.get(1) + map.get(2)) {
+                            newS += (map.get(0) - map.get(1));
                             break;
                         }
                     }
                 }
-                if (ne < min) {
-                    min = ne;
+                if (newS < min) {
+                    min = newS;
                 }
             }
         }
-        var ens = new Date();
-        System.out.println(new Date(ens.getTime()-startt.getTime()).getTime());
-
         System.out.println(min);
-
     }
 
     public static List<Long> getNumbers(String str) {
@@ -65,5 +61,3 @@ public class Main {
         return numbers;
     }
 }
-
-
