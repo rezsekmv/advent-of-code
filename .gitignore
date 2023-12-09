@@ -5,5 +5,6 @@ leaderboard
 .idea
 *.class
 
+*.ex
 *.in
 secret.py

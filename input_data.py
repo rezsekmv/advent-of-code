@@ -12,8 +12,12 @@ def fetch_data(day, year):
     
     return text
 
-def get_data(day, year=2023):
+def get_data(day, year=2023, example=False):
     filename = f"{year}/input_{day}.in"
+    
+    if example:
+        with open(filename.replace('.in', '.ex'), 'rt') as file:
+            return file.read()
 
     if not os.path.isfile(filename):
         text = fetch_data(day, year)
