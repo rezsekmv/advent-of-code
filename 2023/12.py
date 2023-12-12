@@ -1,73 +1,54 @@
 import sys
 sys.path.append('../advent_of_code')
 from input_data import get_data
-import util
-import math
-from collections import deque, defaultdict
-import itertools
-from copy import deepcopy
 
 text = get_data(12, 2023, True)
 lines = text.split('\n')
+cache = dict()
 
-def check(s, a):
-    res = []
-    fin = True
-    for c in s:
-        if c == '#':
-            if fin:
-                res.append(1)
-                fin = False
-            else:
-                res[-1] += 1
-        if c == '.':
-            fin = True
-
-    return res == a
-            
-def find(s, ch):
-    return [i for i, ltr in enumerate(s) if ltr == ch]
-
-def get_arrangement(springs, arrangement):
-    qs = find(springs, '?')
-    L = len(qs)
-    springs = list(springs)
-    good = []
-
-    for perm in itertools.product(['.', '#'], repeat=L):
-        perm = list(perm)
-        for q, char in zip(qs, perm):
-            springs[q] = char
-        strSprings = "".join(springs)
-        if check(strSprings, arrangement):
-            good.append(strSprings)
+def check_string(row: str, arrange: list):
     
-    print(good)
-    combP = list(itertools.product(range(len(good)), repeat=5))
-    combQ = list(itertools.product(['.', '#'], repeat=4))
-    count = 0
-    print(combP)
-    for c in combP:
-        for q in combQ:
-            tmp = ''
-            for i in range(4):
-                tmp += good[c[i]] + q[i]
-            tmp += good[c[4]]
-            if check(tmp, arrangement*5):
-                count += 1
+    if '?' in row:
+        return check_string(row.replace('?', '.', 1), arrange) + check_string(row.replace('?', '#', 1), arrange)
 
-    print(count)
-    return count
-                
+    if len(row) == 0 and len(arrange) == 0:
+        return 1
 
-p1 = 0
+    if '#' not in row:
+        if len(arrange) == 0:
+            return 1
+        else:
+            return 0
+    elif len(arrange) == 0:
+        return 0
+
+
+    if row in cache.keys() and cache[row] == arrange[0]:
+        print('yays')
+        return 1
+
+    hash_idx = row.index('#')
+    i = 0
+    while hash_idx+i < len(row) and row[hash_idx+i] == '#':
+        i += 1
+
+    if arrange[0] == i:
+        cache[row[:hash_idx+i]] = arrange[0]
+        return check_string(row[hash_idx+i:], arrange[1:])
+
+
+    return 0
+
+ans = 0
 for i, line in enumerate(lines):
+    # print(i)
     data, sep = line.split(' ')
     s = []
     for se in sep.split(','):
         s.append(int(se))
-    p1 += get_arrangement(data, s)
+    a = check_string(data + ('?' + data)*4, s*5)
+    # a = check_string(data, s)
+    ans += a
+    print(a)
     
-print(p1)
-
-# Sorba kell behelyettesítgetni a dolgokat, ha már rossz, nem nézzük tovább
+print(ans)
