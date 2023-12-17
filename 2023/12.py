@@ -1,54 +1,86 @@
 import sys
 sys.path.append('../advent_of_code')
 from input_data import get_data
+import functools
 
 text = get_data(12, 2023, True)
 lines = text.split('\n')
-cache = dict()
 
-def check_string(row: str, arrange: list):
+def handle_dot(row, arrange):
+    return calc(row[1:], arrange)
+
+def handle_hash(row, arrange):
+    # replace '?'s with '#'s
+    group = row[:arrange[0]].replace('?', '#')
+
+    # check if there is a '.' in char 
+    if group != arrange[0] * '#':
+        return 0
+    # from now group only contains arrange[0]*'#'
     
-    if '?' in row:
-        return check_string(row.replace('?', '.', 1), arrange) + check_string(row.replace('?', '#', 1), arrange)
+    #if only '#' left
+    if len(arrange) == 1:
+        if len(group) == len(row):
+            return 1
+        else:
+            return 0 
 
-    if len(row) == 0 and len(arrange) == 0:
-        return 1
+    # if next char is separator
+    if len(row) > arrange[0] and row[arrange[0]] in '?.':
+        # skip this group and the separator character and remove current arrange
+        return calc(row[arrange[0]+1:], arrange[1:])
 
-    if '#' not in row:
-        if len(arrange) == 0:
+    # everything else is wrong
+    return 0
+
+
+# add cache functionality
+@functools.cache
+def calc(row: str, arrange: list):
+    # out of arrange numbers
+    if not arrange:
+        if '#' not in row:
             return 1
         else:
             return 0
-    elif len(arrange) == 0:
+    # arrange is not empty
+
+    # out of characters
+    if not row:
         return 0
 
+    result = 0
+    # if next char is '.'
+    if row[0] == '.':
+        result = handle_dot(row, arrange)
 
-    if row in cache.keys() and cache[row] == arrange[0]:
-        print('yays')
-        return 1
+    # if next char is '#'
+    if row[0] == '#':
+        result = handle_hash(row, arrange)
 
-    hash_idx = row.index('#')
-    i = 0
-    while hash_idx+i < len(row) and row[hash_idx+i] == '#':
-        i += 1
+    # if next char is '?' check both '.' and '#' possibilities
+    if row[0] == '?':
+        result = handle_dot(row, arrange) + handle_hash(row, arrange)
 
-    if arrange[0] == i:
-        cache[row[:hash_idx+i]] = arrange[0]
-        return check_string(row[hash_idx+i:], arrange[1:])
+    print(row, arrange, result)
+    return result
 
 
-    return 0
 
-ans = 0
+p1 = 0
+p2 = 0
 for i, line in enumerate(lines):
-    # print(i)
     data, sep = line.split(' ')
-    s = []
-    for se in sep.split(','):
-        s.append(int(se))
-    a = check_string(data + ('?' + data)*4, s*5)
-    # a = check_string(data, s)
-    ans += a
-    print(a)
+    s = tuple([int(se) for se in sep.split(',')])
     
-print(ans)
+    p1comb = calc(data, s)
+    # p2comb = calc(data + ('?' + data)*4, s*5)
+    p2comb = 0
+    p1 += p1comb
+    p2 += p2comb
+    print(i+1, p1comb)
+    print()
+    
+print()
+print(p1)
+print(p2)
