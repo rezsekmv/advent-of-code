@@ -1,57 +1,48 @@
 import sys
 sys.path.append('../advent_of_code')
 from input_data import get_data
-from collections import defaultdict
+from collections import deque
+import math
 
-text = get_data(16, 2023, True)
-step = text.split(',')
+text = get_data(17, 2023, True)
+lines = text.split('\n')
 
-boxes = defaultdict(list)
-p2 = 0
-
-def get_name(s):
-    return s.split('=')[0].split('-')[0]
-
-def hash(s):
-    curr = 0
-    for i in s:
-        curr += ord(i)
-        curr *= 17
-        curr %= 256
-    return curr
-
-def find(val, box):
-    for i, l in enumerate(box):
-        if get_name(l) == val:
-            return i, l 
-    return -1, None
-
-p1 = 0
-curr = 0
-for s in step:
-    p1 += hash(s)
-
-    name = get_name(s)
-    idx = hash(name)
-    i, v = find(name, boxes[idx])
+R = len(lines)
+C = len(lines[0])
+G = [[int(lines[i][j]) for j in range(C)] for i in range(R)]
+class Node:
+    def __init__(self, coords, direction, distance, straight):
+        self.crd = coords
+        self.dir = direction
+        self.dist = distance
+        self.str = straight
     
-    if '-' in s:
-        if i >= 0:
-            boxes[idx].remove(v)
+    def __str__(self):
+        return '{} {} {} {}'.format(self.coords, self.direction, self.distance, self.straight)
 
-    if '=' in s:
-        if i >= 0:
-            boxes[idx][i]
-            boxes[idx][i] = s
-        else:
-            boxes[idx].append(s)
+DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
+distances = [[(math.inf, 0) for j in range(C)] for i in range(R)]
 
-print(p1)
+unvisited = [[[(i, j, k) for k in range(4)] for j in range(C)] for i in range(R)]
 
-for k, v in boxes.items():
-    for i, s in enumerate(v):
-        p2 += (k+1) * (i+1) * int(s.split('=')[1])
+buffer = deque([Node((0,0), 2, 0, 0)])
+while len(buffer) > 0:
+    node = buffer.popleft()
 
-print(p2)
+    for d in range(node.dir-1, node.dir+2):
+        d %= len(DIRECTIONS)
+        r = node.crd[0]+DIRECTIONS[d][0]
+        c = node.crd[1]+DIRECTIONS[d][1]
+        straight = node.str+1 if d == node.dir else 1
 
+        if straight > 3:
+            continue
+        
+        if 0 <= r < R and 0 <= c < C:
+            if distances[r][c][0] < node.dist:
+                continue
 
+            distances[r][c] = (node.dist+G[r][c], straight)
+            buffer.append(Node((r,c), d, node.dist+G[r][c], straight))
+            
+print(distances[R-1][C-1])
