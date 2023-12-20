@@ -3,7 +3,7 @@ sys.path.append('../advent_of_code')
 from input_data import get_data
 import functools
 
-text = get_data(12, 2023, True)
+text = get_data(12, 2023)
 lines = text.split('\n')
 
 def handle_dot(row, arrange):
@@ -18,12 +18,13 @@ def handle_hash(row, arrange):
         return 0
     # from now group only contains arrange[0]*'#'
     
-    #if only '#' left
+    # if last group
     if len(arrange) == 1:
-        if len(group) == len(row):
-            return 1
+        # there can't be more '#'-s after this group
+        if '#' in row[arrange[0]:]:
+            return 0
         else:
-            return 0 
+            return 1 
 
     # if next char is separator
     if len(row) > arrange[0] and row[arrange[0]] in '?.':
@@ -62,7 +63,7 @@ def calc(row: str, arrange: list):
     if row[0] == '?':
         result = handle_dot(row, arrange) + handle_hash(row, arrange)
 
-    print(row, arrange, result)
+    # print(row, arrange, result)
     return result
 
 
@@ -74,13 +75,10 @@ for i, line in enumerate(lines):
     s = tuple([int(se) for se in sep.split(',')])
     
     p1comb = calc(data, s)
-    # p2comb = calc(data + ('?' + data)*4, s*5)
-    p2comb = 0
+    p2comb = calc(data + ('?' + data)*4, s*5)
+
     p1 += p1comb
     p2 += p2comb
-    print(i+1, p1comb)
-    print()
     
-print()
 print(p1)
 print(p2)
