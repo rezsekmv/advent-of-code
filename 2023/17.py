@@ -1,10 +1,11 @@
 import sys
 sys.path.append('../advent_of_code')
 from input_data import get_data
-from collections import deque, defaultdict
+from collections import defaultdict
 import math
+from heapq import heappop, heappush
 
-text = get_data(17, 2023, True)
+text = get_data(17, 2023)
 lines = text.split('\n')
 
 R = len(lines)
@@ -25,19 +26,24 @@ class Node:
     
     def __hash__(self) -> int:
         return hash((self.crd, self.dist, self.straight))
+    
+    def __gt__(self, other):
+        return self.dist > other.dist
+    
+    def __lt__(self, other):
+        return self.dist < other.dist
 
 DIRECTIONS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 
-
-def dijkstra():
+def dijkstra(min_straight, max_straight):
     dists = defaultdict(lambda: math.inf)
     visited = set()
     
     start = Node((0, 0), 0, -1)
-    buffer = deque([start])
+    buffer = [start]
     while buffer:
-        curr = buffer.popleft()
-        # print(curr)
+        curr = heappop(buffer)
+        
         # found the distance to bottom right
         if curr.crd[0] == R-1 and curr.crd[1] == C-1:
             return curr.dist
@@ -55,18 +61,24 @@ def dijkstra():
                 continue
 
             tmp_dist = 0
-            for distance in range(1, 4):    
+            # can go forward 1,2 and 3 steps
+            for distance in range(1, max_straight+1):    
                 rr = curr.crd[0] + d[0] * distance
                 cc = curr.crd[1] + d[1] * distance
+                
+                # if inside grid
                 if 0<=rr<R and 0<=cc<C:
                     tmp_dist += G[rr][cc]
+
+                    if distance < min_straight:
+                        continue
+
                     new_dist = curr.dist + tmp_dist
+
+                    # if new distance is lower, than previous, update
                     if dists[(rr, cc, i)] > new_dist:
                         dists[(rr, cc, i)] = new_dist
-                        buffer.append(Node((rr, cc), new_dist, i))
+                        heappush(buffer, Node((rr, cc), new_dist, i))
 
-    for k,v in dists.items():
-        print(k[:2], v)
-
-
-print(dijkstra())
+print(dijkstra(1, 3))
+print(dijkstra(4, 10))
