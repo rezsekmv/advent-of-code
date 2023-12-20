@@ -2,9 +2,8 @@ import sys
 sys.path.append('../advent_of_code')
 from input_data import get_data
 from collections import defaultdict
-import math
 
-text = get_data(19, 2023, True)
+text = get_data(19, 2023)
 rules_in, parts_in = text.split('\n\n')
 
 # parse input
@@ -28,7 +27,7 @@ for r in rules_in.split('\n'):
         rule.append(parsed)
     rules[state] = rule
 
-def p1()
+def p1():
     while not all([p[-1]=='A' or p[-1]=='R' for p in parts]):
         for part in parts:
             x=int(part[0])
