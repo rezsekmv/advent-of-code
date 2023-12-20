@@ -39,8 +39,8 @@ def dijkstra():
         curr = buffer.popleft()
         # print(curr)
         # found the distance to bottom right
-        # if curr.crd[0] == R-1 and curr.crd[1] == C-1:
-        #     return curr.dist
+        if curr.crd[0] == R-1 and curr.crd[1] == C-1:
+            return curr.dist
 
         # if already visited => skip
         tmp = (curr.crd, curr.straight)
@@ -61,10 +61,9 @@ def dijkstra():
                 if 0<=rr<R and 0<=cc<C:
                     tmp_dist += G[rr][cc]
                     new_dist = curr.dist + tmp_dist
-                    if dists[(rr, cc, i)] < new_dist:
-                        continue
-                    dists[(rr, cc, i)] = new_dist
-                    buffer.append(Node((rr, cc), new_dist, i))
+                    if dists[(rr, cc, i)] > new_dist:
+                        dists[(rr, cc, i)] = new_dist
+                        buffer.append(Node((rr, cc), new_dist, i))
 
     for k,v in dists.items():
         print(k[:2], v)
