@@ -1,7 +1,8 @@
 import sys
 sys.path.append('../advent_of_code')
 from input_data import get_data
-from collections import defaultdict
+from collections import defaultdict, deque
+from copy import deepcopy
 
 text = get_data(19, 2023)
 rules_in, parts_in = text.split('\n\n')
@@ -50,12 +51,59 @@ def p1():
                 ans += int(p)
     return ans
 
+
 def p2():
-    for key, values in rules.items():
-        for v in values:
-            if v[1] == 'A':
-                print(v)
-    return 0
+    intervals = deque([
+        {
+            'x': (1, 4000),
+            'm': (1, 4000),
+            'a': (1, 4000),
+            's': (1, 4000),
+            'state': 'in'
+        }
+    ])
+    good_intervals = []
+    while intervals:
+        interval = intervals.popleft()
+        for rule, dest in rules[interval['state']]:
+            new_interval = deepcopy(interval)
+            new_interval['state'] = dest
+
+            if '<' in rule:
+                letter, num = rule.split('<')
+                num = int(num)
+                new_interval[letter] = (interval[letter][0], num-1)
+                interval[letter] = (num, interval[letter][1])
+                if dest == 'A':
+                    good_intervals.append(new_interval)
+                elif not dest == 'R':
+                    intervals.append(new_interval)
+            elif '>' in rule:
+                letter, num = rule.split('>')
+                num = int(num)
+                new_interval[letter] = (num+1, interval[letter][1])
+                interval[letter] = (interval[letter][0], num)
+                if dest == 'A':
+                    good_intervals.append(new_interval)
+                elif not dest == 'R':
+                    intervals.append(new_interval)
+            elif 'True' in rule:
+                interval['state'] = dest
+                if dest == 'A':
+                    good_intervals.append(interval)
+                elif not dest == 'R':
+                    intervals.append(interval)
+            else:
+                assert False
+    
+    p2 = 0
+    for gi in good_intervals:
+        row = 1
+        for value in list(gi.values())[:-1]:
+            start, end = value
+            row *= (end-start+1)
+        p2 += row
+    return p2 
 
 print(p1())
 print(p2())
