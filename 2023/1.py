@@ -1,5 +1,5 @@
 import sys
-sys.path.append('../advent_of_code')
+sys.path.append('../advent-of-code')
 from input_data import get_data
 
 import copy

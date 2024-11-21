@@ -1,9 +1,10 @@
-__pycache__
+**/__pycache__
 input
 leaderboard
 *.txt
 .idea
 *.class
+**/.DS_Store
 
 *.ex
 *.in
