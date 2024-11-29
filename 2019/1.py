@@ -1,27 +1,21 @@
-import sys
-sys.path.append('../advent-of-code')
-
 from input_data import get_data
-import os
-import math
-from collections import deque
 
-data = get_data(1, 2019).split('\n')
-res = []
-
-def use(f):
-    c = 0
-    while f > 0: 
-        f = math.floor(int(f)/3)-2
-        c += f
-    return c
+data = get_data(1).split()
 
 
-
+p1 = 0
+p2 = 0
 for d in data:
-    res.append(use(int(d)))
-
-
+    f = int(d)
+    s = 0
+    while f > 2:
+        f = f//3-2
+        s += f if f > 0 else 0
     
-print(sum(res))
-print('end')
+    p2+=s
+
+    p1+=int(d)//3-2    
+    
+
+print(p1)
+print(p2)

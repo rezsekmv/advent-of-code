@@ -1,4 +1,9 @@
 from input_data import get_data
 
-get_data(1)
-print('asd')
+data = get_data(1).split()
+
+print(data)
+
+p1 = 1
+
+print(p1)

@@ -1,19 +1,19 @@
-import sys
-sys.path.append('../advent_of_code')
 from input_data import get_data
-import math
-from collections import deque
-from submit import submit
 
-text = get_data(1, 2017)
-data = text
+data = get_data(1)
 
-s = 0
+p1, p2 = 0, 0
 prev = data[-1]
+hi = len(data)//2
 for b in data: 
     if b == prev:
-        s += int(b)
+        p1 += int(b)
     prev = b
 
-print(s)
+    if b == data[hi%len(data)]:
+        p2 += int(b)
+    hi += 1
+
+print(p1)
+print(p2)
     
