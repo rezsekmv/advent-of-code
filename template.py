@@ -1,5 +1,6 @@
 import sys
 import re
+import heapq as hq
 from collections import defaultdict, deque
 from copy import deepcopy
 import pyperclip as pc
