@@ -14,7 +14,7 @@ def fetch_data(day, year):
     
     return text
 
-def get_data(day, year=2024, example=False):
+def get_data(day=sys.argv[0].split('.')[0], year=2024, example=False):
     filename = f"input_{day}.in"
     
     if example:

@@ -1,22 +1,7 @@
-import sys
-import re
-import heapq as hq
-from collections import defaultdict, deque
-from copy import deepcopy
-import pyperclip as pc
-sys.setrecursionlimit(10**6)
-def pr(s):
-    print(s)
-    pc.copy(s)
+from util import *
 
-from input_data import get_data
-
-text = get_data(6, example=False)
-lines = text.split('\n')
-
-data = [list(d) for d in lines]
-R = len(data)
-C = len(data[0])
+text = get_data()
+data, R, C = getGrid(text.split('\n'))
 
 
 def solveP1():

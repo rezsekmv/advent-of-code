@@ -1,7 +1,7 @@
 import requests
 import os.path
 import sys
-
+sys.path.append('../')
 from secret import SESSION_ID
 
 def fetch_data(day, year):
@@ -11,11 +11,11 @@ def fetch_data(day, year):
 
     resp = requests.get(f'https://adventofcode.com/{year}/day/{day}/input', headers=headers)
     text = resp.content.decode('utf-8').strip()
-
+    
     return text
 
-def get_data(day, year=2023, example=False):
-    filename = f"{year}/input_{day}.in"
+def get_data(day=sys.argv[0].split('.')[0], year=2024, example=False):
+    filename = f"input_{day}.in"
     
     if example:
         with open(filename.replace('.in', '.ex'), 'rt') as file:
