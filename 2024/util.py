@@ -6,6 +6,7 @@ from copy import deepcopy
 import pyperclip as pc
 sys.setrecursionlimit(10**6)
 from input_data import get_data
+en =enumerate
 p1=p2=0
 
 def pr(s):
@@ -16,7 +17,7 @@ def getCommon(list1, list2):
     return list(set(list1).intersection(list2))
 
 def getNumbers(str):
-    return [int(num) for num in re.findall(r'-?\d+', str)]
+    return [int(num) for num in re.findall(r'\d+', str)]
 
 def getRegexp(str, regexp='^[a-zA-Z]+$'):
     return re.findall(regexp, str)

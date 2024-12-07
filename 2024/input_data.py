@@ -11,13 +11,13 @@ def fetch_data(day, year):
 
     resp = requests.get(f'https://adventofcode.com/{year}/day/{day}/input', headers=headers)
     text = resp.content.decode('utf-8').strip()
-    
+    print(text)
     return text
 
-def get_data(day=sys.argv[0].split('.')[0], year=2024, example=False):
+def get_data(day=sys.argv[0].split('.')[0], year=2024, ex=False):
     filename = f"input_{day}.in"
     
-    if example:
+    if ex:
         with open(filename.replace('.in', '.ex'), 'rt') as file:
             return file.read()
 
