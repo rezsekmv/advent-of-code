@@ -19,7 +19,7 @@ def get_data(day=sys.argv[0].split('.')[0], year=2024, ex=False):
     
     if ex:
         with open(filename.replace('.in', '.ex'), 'rt') as file:
-            return file.read()
+            return file.read().strip()
 
     if not os.path.isfile(filename):
         text = fetch_data(day, year)
