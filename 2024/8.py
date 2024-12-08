@@ -21,7 +21,6 @@ for y in range(R):
 S=set()
 S2=set()
 for k,v in D.items():
-    S2.update(v)
     for i in range(len(v)-1):
         for j in range(i+1, len(v)):
             a1, a2 = v[i], v[j]
