@@ -36,6 +36,8 @@ def getGrid(lines):
     C = len(data[0])
     return data, R, C
 
+def flatten(xss):
+    return [x for xs in xss for x in xs]
 
 # def astar(x, y, target):    
 #     start = (dist, x, y)
