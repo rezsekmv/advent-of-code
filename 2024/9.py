@@ -50,7 +50,6 @@ while 0 < r:
             x=0
             while l+x <= r-y and a[l+x] == '.':
                 x+=1
-            # print(l,r, x,y, a[l], a[r], ''.join(a))
             if y <= x and l < r-y:
                 for i in range(y):
                     a[r-i], a[l+i] = a[l+i], a[r-i]
