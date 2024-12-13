@@ -5,7 +5,6 @@ data, R, C = getGrid(data)
 
 T = []
 K = []
-DIRS=[(1,0), (0,-1), (-1,0), (0,1)]
 SEEN=set()
 REG=[]
 for rr in range(R):
@@ -28,7 +27,7 @@ for rr in range(R):
 
             t+=1
             n=0
-            for xx, yy in [(0,1), (1,0), (-1,0), (0,-1)]:
+            for xx, yy in DIRS:
                 dx, dy = x+xx, y+yy
                 if (0<=dx<C and 0<=dy<R) and data[dy][dx] == r:
                     if (dx,dy) not in SEEN:

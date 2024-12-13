@@ -5,10 +5,13 @@ from collections import defaultdict, deque
 from copy import deepcopy
 import pyperclip as pc
 import math
+from sympy.solvers import solve
+from sympy.abc import x, y, z
 sys.setrecursionlimit(10**6)
 from input_data import get_data
 en =enumerate
 p1=p2=0
+DIRS = [(1,0), (0,1), (-1,0), (0,-1)]
 
 def pr(s):
     print(s)
@@ -38,6 +41,9 @@ def getGrid(lines):
 
 def flatten(xss):
     return [x for xs in xss for x in xs]
+
+def isInt(num):
+    return int(num) == num
 
 # def astar(x, y, target):    
 #     start = (dist, x, y)
