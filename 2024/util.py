@@ -5,6 +5,7 @@ from collections import defaultdict, deque
 from copy import deepcopy
 import pyperclip as pc
 import math
+import time
 from sympy.solvers import solve
 from sympy.abc import x, y, z
 sys.setrecursionlimit(10**6)
@@ -20,8 +21,11 @@ def pr(s):
 def getCommon(list1, list2):
     return list(set(list1).intersection(list2))
 
-def getNumbers(str):
-    return [int(num) for num in re.findall(r'\d+', str)]
+def getNumbers(str, negative=True):
+    if negative:
+        return [int(num) for num in re.findall(r'-?\d+', str)]
+    else:
+        return [int(num) for num in re.findall(r'\d+', str)]
 
 def getRegexp(str, regexp='^[a-zA-Z]+$'):
     return re.findall(regexp, str)
