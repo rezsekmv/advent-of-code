@@ -44,6 +44,8 @@ def getGrid(lines):
     return data, R, C
 
 def flatten(xss):
+    if not isinstance(xss[0], list):
+        return xss
     return [x for xs in xss for x in xs]
 
 def isInt(num):
