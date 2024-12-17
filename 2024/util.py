@@ -3,6 +3,7 @@ import re
 import heapq as hq
 from collections import defaultdict, deque
 from copy import deepcopy
+dp=deepcopy
 import pyperclip as pc
 import math
 import time
