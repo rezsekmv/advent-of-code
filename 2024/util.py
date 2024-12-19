@@ -7,6 +7,7 @@ dp=deepcopy
 import pyperclip as pc
 import math
 import time
+import functools
 from sympy.solvers import solve
 from sympy.abc import x, y, z
 sys.setrecursionlimit(10**6)
