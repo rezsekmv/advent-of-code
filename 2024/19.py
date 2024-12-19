@@ -1,10 +1,6 @@
 from util import *
 towels, data = get_data().split('\n\n')
 
-T=[]
-for t in towels.split(','):
-    T.append(t.strip())
-
 DP={}
 def calc(puzzle, c):
     if puzzle in DP:
@@ -14,10 +10,9 @@ def calc(puzzle, c):
         return 1
 
     a=0
-    for t in T:
+    for t in towels.split(', '):
         if puzzle.startswith(t):
-            ans = calc(puzzle[len(t):], c)
-            a += ans
+            a += calc(puzzle[len(t):], c)
 
     DP[puzzle] = a    
     return a
