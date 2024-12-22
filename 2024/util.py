@@ -1,9 +1,9 @@
 import sys
 import re
 import heapq as hq
-from collections import defaultdict, deque
+from collections import defaultdict, deque, OrderedDict
 from copy import deepcopy
-dp=deepcopy
+dc=deepcopy
 import pyperclip as pc
 import math
 import time
@@ -15,6 +15,7 @@ from input_data import get_data
 en =enumerate
 p1=p2=0
 DIRS = [(1,0), (0,1), (-1,0), (0,-1)]
+ex=len(sys.argv) > 1
 
 def pr(s):
     print(s)

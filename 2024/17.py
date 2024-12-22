@@ -61,7 +61,7 @@ def run(R, P):
     return out
 
 
-pr(','.join(map(str,run(dp(R),P))))
+pr(','.join(map(str,run(dc(R),P))))
 
 R = {
     'A':0,
@@ -78,7 +78,7 @@ while Q:
     for aa in range(a*8, a*8+9):
         goal = P[-1*i:]
         R['A']=aa
-        o=run(dp(R),P)
+        o=run(dc(R),P)
         if o == goal:
             Q.append((aa, i+1))
 
