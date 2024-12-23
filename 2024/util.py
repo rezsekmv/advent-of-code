@@ -5,11 +5,13 @@ from collections import defaultdict, deque, OrderedDict
 from copy import deepcopy
 dc=deepcopy
 import pyperclip as pc
+import itertools as it
 import math
 import time
 import functools
 from sympy.solvers import solve
 from sympy.abc import x, y, z
+import networkx as nx
 sys.setrecursionlimit(10**6)
 from input_data import get_data
 en =enumerate
