@@ -2,8 +2,7 @@ import sys
 import re
 import heapq as hq
 from collections import defaultdict, deque, OrderedDict
-from copy import deepcopy
-dc=deepcopy
+from copy import deepcopy as dc
 import pyperclip as pc
 import itertools as it
 import math
