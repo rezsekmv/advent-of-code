@@ -1,6 +1,6 @@
 from input_data import get_data
 
-data = get_data(3, example=False)
+data = get_data()
 s={(0,0)}
     
 for p1 in [True, False]:

@@ -1,11 +1,6 @@
 from util import *
-text = get_data(7, example=True)
-lines = text.split('\n')
+data = get_data().split()
 
-p1=0
-p2=0
-
-print(text)
+print(data)
 
 pr(p1)
-pr(p2)

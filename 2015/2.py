@@ -1,6 +1,6 @@
 from input_data import get_data
 
-data = get_data(2).split('\n')
+data = get_data().split('\n')
 p1=0
 p2=0
 for i in data:

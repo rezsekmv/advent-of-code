@@ -1,6 +1,6 @@
 from input_data import get_data
 
-data = get_data(1)
+data = get_data()
 s=0
 p2=True
 b=None

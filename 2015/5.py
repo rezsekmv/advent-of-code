@@ -1,6 +1,6 @@
 from input_data import get_data
 
-data = get_data(5, example=False).split()
+data = get_data().split()
 
 vow='aeiou'
 n = ['ab', 'cd', 'pq', 'xy']
