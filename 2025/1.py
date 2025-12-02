@@ -1,6 +1,6 @@
 from util import *
 
-data = get_data(1, ex=False).split('\n')
+data = get_data().split('\n')
 
 p1 = 0
 p2 = 0
