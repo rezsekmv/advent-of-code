@@ -1,5 +1,7 @@
 import sys
 import re
+import numpy as np
+import z3
 import heapq as hq
 from collections import defaultdict, deque, OrderedDict
 from copy import deepcopy as dc
@@ -54,6 +56,20 @@ def flatten(xss):
 
 def isInt(num):
     return int(num) == num
+
+def add_tuples(a,b):
+    return tuple(map(sum, zip(a, b)))
+
+def sub_tuples(a,b):
+    return tuple(map(lambda i, j: i - j, a, b))
+
+def dot_n(a,b):
+    A = np.array(a)
+    B = np.array(b)
+    An = A/np.linalg.norm(A)
+    Bn = B/np.linalg.norm(B)
+    return An @ Bn
+
 
 # def astar(x, y, target):    
 #     start = (dist, x, y)
