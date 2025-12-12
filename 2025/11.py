@@ -11,6 +11,7 @@ for i,l in en(lines):
 
     G[src] = dests
 
+@functools.cache
 def part1(curr):
     if curr == 'out':
         return 1
