@@ -14,12 +14,12 @@ def maxd(A):
         if max_ < r[-1]:
             max_ = r[-1]
             maxi = [i]
-        if max_ == r[-1]:
+        elif max_ == r[-1]:
             maxi.append(i)
     return max_, maxi
 
 RR = [0]*len(R)
-for i in range(2503):
+for _ in range(2503):
     for i,(v,t,r,rest,go_time,dist) in en(R):
         if rest:
             if go_time == 0:
